@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>手机号</th>
+		</tr>
+		<tr>
+		{foreach item="list" name="list"}
+			<td>{$list.id}</td>
+			<td>{$list.username}</td>
+			<td>{$list.sex}</td>
+			<td>{$list.telphone}</td>
+		</tr>
+		{/foreach}
+	</table>
+{$page}
+</body>
+</html>

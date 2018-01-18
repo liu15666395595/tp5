@@ -1,0 +1,133 @@
+<html>
+	<head>
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<!-- <link rel="stylesheet" type="text/css" href="__STATIC__static/css/manhuaDate.1.0.css"> -->
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="__STATIC__static/css/iPicture.css"/> -->
+<link rel="stylesheet" type="text/css" media="screen" href="__STATIC__css/css.css"/>
+
+<!-- <script type="text/javascript" src="__STATIC__static/js/jquery-1.7.2.min.js"></script> -->
+
+<!-- <script type="text/javascript" src="__STATIC__static/js/jquery.date_input.pack.js"></script> -->
+
+<!-- <script type="text/javascript" src="__STATIC__static/layer/2.4/layer.js"></script> -->
+<!-- <script src="__STATIC__static/js/laydate.js"></script> -->
+
+<!-- <script type="text/javascript" src="__STATIC__static/js/jquery.ipicture.js"></script> -->
+
+<style>
+
+</style>
+		<title>
+			注册
+		</title>
+	</head>
+<body>
+	<form action="do_zhuce" id="leave" method="post" class="basic-grey" >
+		<h1>注册
+			<span></span>
+		</h1>
+			<label>
+				<span>姓名 :</span>
+				<input id="username" type="text" name="username" placeholder="请输入姓名" />
+				<div style="margin-left:25%" id="showenmsg"></div>	
+			</label>
+			<label>
+				<span>密码 :</span>
+				<input id="password" type="password" name="password" placeholder="请输入密码" />
+				<div style="margin-left:25%" id="showenmsg"></div>	
+			</label>
+			<label>
+				<span>确认密码 :</span>
+				<input id="repassword" type="password" name="repassword" placeholder="请输入密码" />
+				<div style="margin-left:25%" id="showenmsg"></div>	
+			</label>   		
+			<label>
+				<span>性别 :</span>
+					<input type="radio" value="男" name="sex" checked>&nbsp;男
+					<input type="radio" value="女" name="sex">&nbsp;女
+			</label>
+				<br/>
+		
+			<label>
+				<span>手机号:</span>
+				<input name="telphone" maxlength="11" type="text" id="telphone" placeholder="请输入手机号">
+				<div style="margin-left:25%;" id="showsphone"></div>
+			</label>
+		
+				<input type="submit" id="button" class="submit" value="提交" />
+
+</form>
+
+<script type="text/javascript">
+	
+
+</script>
+<script type="text/javascript">
+	$(function(){
+	$("#button").click(function(){
+		var form = new FormData(document.getElementById("leave"));
+		console.log(form)
+		var	reg = /^[\u4E00-\u9FA5]{2,4}$/;
+		var name=$('#username').val();
+			if(!reg.test(name)){
+				layer.msg('姓名格式不对');
+				return false;
+			}
+		var password=$('#password').val();
+			if(password==''){
+				layer.msg('密码不可为空');
+				return false;
+			}
+		var sex=$('#sex').val();
+			if(sex==''){
+				layer.msg('性别不能为空');
+				return false;
+			}
+		var telphone=$('#telphone').val();
+			if(telphone==''){
+				layer.msg('学生手机号不可为空');
+				return false;
+			}
+			if(!(/^1[34578]\d{9}$/.test(telphone))){ 
+				layer.msg('手机号码有误，请重填');  
+				return false; 
+			}
+		$.ajax({
+			url:"{:url('Index/do_zhuce')}",
+			type:"POST",
+			data:form,
+			processData: false,
+   			contentType: false,
+			success:function(data){
+				switch(data.status){
+					case 1:layer.msg(data.msg, {
+                             // offset: 't',
+                                 anim: 0
+                              });
+                            setInterval(function () {
+                            location.href="{:url('Index/zhuce')}";
+                            },1000);
+                    case 2 :layer.msg(data.msg, {
+                             // offset: 't',
+                                 anim: 0
+                              });break;
+					case 3 :layer.msg(data.msg, {
+                             // offset: 't',
+                                 anim: 0
+                              });break;
+                }
+			},
+			error:function(){
+				layer.msg('错误');
+			},
+		});
+		
+			
+	});
+
+	})
+
+</script>
+</body>
+</html>

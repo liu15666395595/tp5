@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+	<title></title>
+	</head>
+	<body>
+	<form class="verifyCode" action="{:url('Index/do_yanzhengma')}" method="get">
+		<label>
+			<p class="pass-form-item">
+			    <label class="pass-label">验证码</label>
+			    <input type="text" name="yanzheng"  placeholder="请输入验证码">
+			        <div><img id="verify_img" src="{:captcha_src()}" alt="验证码" onclick="refreshVerify()">
+                    <a href="javascript:refreshVerify()">点击刷新</a></div>
+		    </p>
+		</label>
+		<label><input type="submit" id="button" class="button" value="提交"></label>
+	</form>
+    <script>
+        function refreshVerify() {
+            var ts = Date.parse(new Date())/1000;
+            var img = document.getElementById('verify_img');
+            img.src = "/captcha?id="+ts;
+        }
+    </script>
+		      </body>
+		      </html>
